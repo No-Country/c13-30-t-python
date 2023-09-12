@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Corresponsal bancario</title>
-    <!-- Agrega jQuery desde un CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         /* Estilo para centrar elementos */
@@ -55,7 +54,6 @@
     <h1>Corresponsal Bancario</h1>
     <form method="post">
         {% csrf_token %}
-        <!-- Div para las opciones de Recarga o Retiro -->
         <div class="opciones">
             <div class="opcion">
                 <label for="recarga">Recarga</label>
@@ -68,15 +66,12 @@
             </div>
         </div>
 
-        <!-- Campo para la cédula -->
         <label for="{{ form.cedula.id_for_label }}" id="label_cedula">Cédula:</label>
         {{ form.cedula }}
         
-        <!-- Campo para el código de validación o cantidad de recarga -->
         <label for="{{ form.codigo_validacion.id_for_label }}" id="label_codigo_validacion">Código de Validación:</label>
         {{ form.codigo_validacion }}
 
-        <!-- Opciones de selección entre "Recarga" y "Retiro" -->
         <button type="submit">Realizar Operación</button>
     </form>
 

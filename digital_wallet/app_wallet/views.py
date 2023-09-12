@@ -62,8 +62,14 @@ class ReloadMoneyView(APIView):
         #     user_id=id_user).values('balance').first()['balance']
       
         new_balance = BalanceDetail.objects.get(user_id=id_user)
-        new_balance.balance = (new_balance.balance + request.data['reload'])
-        new_balance.save()
+
+        new_balance.balance = new_balance.balance + request.data['reload']
+        print(new_balance.balance)
+        try:
+            new_balance.save()
+            print(new_balance.balance)
+        except Exception as e:
+            print(f"Error al guardar el balance: {e}")
 
         return Response(status=status.HTTP_201_CREATED)
 
