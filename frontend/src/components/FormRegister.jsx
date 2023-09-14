@@ -29,7 +29,8 @@ const FormRegister = () => {
     e.preventDefault();
     setPasswordNoMatch(false);
     setProcessing(true);
-    if (createUser?.password !== createUser?.password_confirm) {
+    console.log(createUser);
+    if (createUser?.password !== createUser?.password_confirmation) {
       setPasswordNoMatch(true);
       return;
     }
@@ -50,7 +51,7 @@ const FormRegister = () => {
       console.log(res.statusText);
       setTimeout(() => {
         return navigate("/login");
-      }, 5000);
+      }, 2000);
     }).catch(err => {
       setError(true);
       console.log(err);

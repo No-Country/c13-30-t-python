@@ -7,10 +7,12 @@ import requests
 
 
 class backing_corresponsal(FormView):
+
     template_name = 'formulario.html'
     form_class = UsuarioForm
     success_url = reverse_lazy('bancking:corresponsalbancario')
-
+    global url_base
+    url_base = "https://jc123.pythonanywhere.com"
     def form_valid(self, form):
         identification_number = form.cleaned_data['cedula'],
         value =form.cleaned_data['codigo_validacion']
@@ -26,11 +28,12 @@ class backing_corresponsal(FormView):
     
 
     def query_reload(self, identification_number, value):
+            global url_base
             print('Se seleccionó Recarga')
             usuario = User.objects.filter(identification_number=identification_number[0]).values('id', 'name').first()
-      
+            url = url_base + "/api/v1/recarga/"
             if usuario:
-                response = requests.post('http://127.0.0.1:8000/api/v1/recarga/', json={"identification": identification_number[0], "reload": int(value)})
+                response = requests.post(url, json={"identification": identification_number[0], "reload": int(value)})
                 
                 if response.status_code == 201:
                     # new_balance = BalanceDetail.objects.get(user_id=usuario["id"])
@@ -45,9 +48,13 @@ class backing_corresponsal(FormView):
 
 
     def querywithdrawals(self, identification_number, code_validation):
+            global url_base
+
             print('Se seleccionó retiro')
+            url = url_base + "/api/v1/corresponsalretiro/"
+
             usuario = User.objects.filter(identification_number=identification_number[0]).values('id', 'name').first()
-            response = requests.post('http://127.0.0.1:8000/api/v1/corresponsalretiro/', json={"identification_number": identification_number[0], "code_validation": code_validation})
+            response = requests.post(url, json={"identification_number": identification_number[0], "code_validation": code_validation})
                 
             if response.status_code == 201 or response.status_code == 200:
                 print('retiro exitosa')
