@@ -61,3 +61,8 @@ class UpdateUserSerializer(serializers.ModelSerializer):
         
 class CustomTokenSerializer(TokenObtainPairSerializer):
   pass
+
+class UpdatePasswordSerializer(serializers.Serializer):
+    id = serializers.IntegerField() 
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
